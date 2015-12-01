@@ -5,6 +5,8 @@ import (
 	"github.com/nu7hatch/gouuid"
 )
 
+var MyName = "Bhaskar"
+
 func ExampleNewV4() {
 	u4, err := uuid.NewV4()
 	if err != nil {
