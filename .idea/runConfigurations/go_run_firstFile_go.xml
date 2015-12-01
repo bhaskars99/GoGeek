@@ -1,0 +1,8 @@
+<component name="ProjectRunConfigurationManager">
+  <configuration default="false" name="go run firstFile.go" type="GoRunFileConfiguration" factoryName="Go Single File">
+    <module name="GoGeek" />
+    <working_directory value="$PROJECT_DIR$" />
+    <filePath value="$PROJECT_DIR$/01_helloWorld/firstFile.go" />
+    <method />
+  </configuration>
+</component>
