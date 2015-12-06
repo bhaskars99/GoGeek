@@ -9,7 +9,6 @@ func half (x int) (half int, even bool) {
 	half = x/2
 	return
 }
-
 func greatest (numbers ...int) (max int) {
 	for _, n := range numbers {
 		if n > max {
