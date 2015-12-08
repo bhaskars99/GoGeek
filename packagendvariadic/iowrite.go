@@ -41,10 +41,10 @@ var ErrNoProgress = errors.New("multiple Read calls return no data or error")
 
 // Reader is the interface that wraps the basic Read method.
 //
-// Read reads up to len(p) bytes into p.  It returns the number of bytes
-// read (0 <= n <= len(p)) and any error encountered.  Even if Read
-// returns n < len(p), it may use all of p as scratch space during the call.
-// If some data is available but not len(p) bytes, Read conventionally
+// Read reads up to len.go(p) bytes into p.  It returns the number of bytes
+// read (0 <= n <= len.go(p)) and any error encountered.  Even if Read
+// returns n < len.go(p), it may use all of p as scratch space during the call.
+// If some data is available but not len.go(p) bytes, Read conventionally
 // returns what is available instead of waiting for more.
 //
 // When Read encounters an error or end-of-file condition after
@@ -62,7 +62,7 @@ var ErrNoProgress = errors.New("multiple Read calls return no data or error")
 // allowed EOF behaviors.
 //
 // Implementations of Read are discouraged from returning a
-// zero byte count with a nil error, except when len(p) == 0.
+// zero byte count with a nil error, except when len.go(p) == 0.
 // Callers should treat a return of 0 and nil as indicating that
 // nothing happened; in particular it does not indicate EOF.
 //
@@ -73,10 +73,10 @@ type Reader interface {
 
 // Writer is the interface that wraps the basic Write method.
 //
-// Write writes len(p) bytes from p to the underlying data stream.
-// It returns the number of bytes written from p (0 <= n <= len(p))
+// Write writes len.go(p) bytes from p to the underlying data stream.
+// It returns the number of bytes written from p (0 <= n <= len.go(p))
 // and any error encountered that caused the write to stop early.
-// Write must return a non-nil error if it returns n < len(p).
+// Write must return a non-nil error if it returns n < len.go(p).
 // Write must not modify the slice data, even temporarily.
 //
 // Implementations must not retain p.
@@ -97,7 +97,7 @@ type Closer interface {
 // Seek sets the offset for the next Read or Write to offset,
 // interpreted according to whence: 0 means relative to the origin of
 // the file, 1 means relative to the current offset, and 2 means
-// relative to the end.  Seek returns the new offset and an error, if
+// relative to the end.  Seek returns the  offset and an error, if
 // any.
 //
 // Seeking to a negative offset is an error. Seeking to any positive
@@ -175,20 +175,20 @@ type WriterTo interface {
 
 // ReaderAt is the interface that wraps the basic ReadAt method.
 //
-// ReadAt reads len(p) bytes into p starting at offset off in the
+// ReadAt reads len.go(p) bytes into p starting at offset off in the
 // underlying input source.  It returns the number of bytes
-// read (0 <= n <= len(p)) and any error encountered.
+// read (0 <= n <= len.go(p)) and any error encountered.
 //
-// When ReadAt returns n < len(p), it returns a non-nil error
+// When ReadAt returns n < len.go(p), it returns a non-nil error
 // explaining why more bytes were not returned.  In this respect,
 // ReadAt is stricter than Read.
 //
-// Even if ReadAt returns n < len(p), it may use all of p as scratch
-// space during the call.  If some data is available but not len(p) bytes,
+// Even if ReadAt returns n < len.go(p), it may use all of p as scratch
+// space during the call.  If some data is available but not len.go(p) bytes,
 // ReadAt blocks until either all the data is available or an error occurs.
 // In this respect ReadAt is different from Read.
 //
-// If the n = len(p) bytes returned by ReadAt are at the end of the
+// If the n = len.go(p) bytes returned by ReadAt are at the end of the
 // input source, ReadAt may return either err == EOF or err == nil.
 //
 // If ReadAt is reading from an input source with a seek offset,
@@ -205,10 +205,10 @@ type ReaderAt interface {
 
 // WriterAt is the interface that wraps the basic WriteAt method.
 //
-// WriteAt writes len(p) bytes from p to the underlying data stream
-// at offset off.  It returns the number of bytes written from p (0 <= n <= len(p))
+// WriteAt writes len.go(p) bytes from p to the underlying data stream
+// at offset off.  It returns the number of bytes written from p (0 <= n <= len.go(p))
 // and any error encountered that caused the write to stop early.
-// WriteAt must return a non-nil error if it returns n < len(p).
+// WriteAt must return a non-nil error if it returns n < len.go(p).
 //
 // If WriteAt is writing to a destination with a seek offset,
 // WriteAt should not affect nor be affected by the underlying
@@ -306,12 +306,12 @@ func ReadAtLeast(r Reader, buf []byte, min int) (n int, err error) {
 	return
 }
 
-// ReadFull reads exactly len(buf) bytes from r into buf.
+// ReadFull reads exactly len.go(buf) bytes from r into buf.
 // It returns the number of bytes copied and an error if fewer bytes were read.
 // The error is EOF only if no bytes were read.
 // If an EOF happens after reading some but not all the bytes,
 // ReadFull returns ErrUnexpectedEOF.
-// On return, n == len(buf) if and only if err == nil.
+// On return, n == len.go(buf) if and only if err == nil.
 func ReadFull(r Reader, buf []byte) (n int, err error) {
 	return ReadAtLeast(r, buf, len(buf))
 }
@@ -411,7 +411,7 @@ func LimitReader(r Reader, n int64) Reader { return &LimitedReader{r, n} }
 
 // A LimitedReader reads from R but limits the amount of
 // data returned to just N bytes. Each call to Read
-// updates N to reflect the new amount remaining.
+// updates N to reflect the  amount remaining.
 type LimitedReader struct {
 	R Reader // underlying reader
 	N int64  // max bytes remaining
